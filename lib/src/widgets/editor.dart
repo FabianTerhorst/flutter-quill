@@ -21,8 +21,6 @@ import 'cursor.dart';
 import 'default_styles.dart';
 import 'delegate.dart';
 import 'embeds/image.dart';
-import 'embeds/video_app.dart';
-import 'embeds/youtube_video_app.dart';
 import 'float_cursor.dart';
 import 'link.dart';
 import 'raw_editor.dart';
@@ -222,13 +220,6 @@ Widget defaultEmbedBuilder(
                         )));
           },
           child: image);
-    case 'video':
-      final videoUrl = node.value.data;
-      if (videoUrl.contains('youtube.com') || videoUrl.contains('youtu.be')) {
-        return YoutubeVideoApp(
-            videoUrl: videoUrl, context: context, readOnly: readOnly);
-      }
-      return VideoApp(videoUrl: videoUrl, context: context, readOnly: readOnly);
     default:
       throw UnimplementedError(
         'Embeddable type "${node.value.type}" is not supported by default '
