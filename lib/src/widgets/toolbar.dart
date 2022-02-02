@@ -9,7 +9,6 @@ import '../models/themes/quill_icon_theme.dart';
 import '../utils/media_pick_setting.dart';
 import 'controller.dart';
 import 'toolbar/arrow_indicated_button_list.dart';
-import 'toolbar/camera_button.dart';
 import 'toolbar/clear_format_button.dart';
 import 'toolbar/color_button.dart';
 import 'toolbar/history_button.dart';
@@ -39,13 +38,7 @@ export 'toolbar/toggle_check_list_button.dart';
 export 'toolbar/toggle_style_button.dart';
 export 'toolbar/video_button.dart';
 
-typedef OnImagePickCallback = Future<String?> Function(File file);
-typedef OnVideoPickCallback = Future<String?> Function(File file);
 typedef FilePickImpl = Future<String?> Function(BuildContext context);
-typedef WebImagePickImpl = Future<String?> Function(
-    OnImagePickCallback onImagePickCallback);
-typedef WebVideoPickImpl = Future<String?> Function(
-    OnVideoPickCallback onImagePickCallback);
 typedef MediaPickSettingSelector = Future<MediaPickSetting?> Function(
     BuildContext context);
 
@@ -102,12 +95,8 @@ class QuillToolbar extends StatelessWidget implements PreferredSizeWidget {
     bool showImageButton = true,
     bool showVideoButton = true,
     bool showCameraButton = true,
-    OnImagePickCallback? onImagePickCallback,
-    OnVideoPickCallback? onVideoPickCallback,
     MediaPickSettingSelector? mediaPickSettingSelector,
     FilePickImpl? filePickImpl,
-    WebImagePickImpl? webImagePickImpl,
-    WebVideoPickImpl? webVideoPickImpl,
 
     ///The theme to use for the icons in the toolbar, uses type [QuillIconTheme]
     QuillIconTheme? iconTheme,
@@ -136,9 +125,7 @@ class QuillToolbar extends StatelessWidget implements PreferredSizeWidget {
           showInlineCode ||
           showColorButton ||
           showBackgroundColorButton ||
-          showClearFormat ||
-          onImagePickCallback != null ||
-          onVideoPickCallback != null,
+          showClearFormat,
       showAlignmentButtons,
       showLeftAlignment,
       showCenterAlignment,
@@ -250,9 +237,7 @@ class QuillToolbar extends StatelessWidget implements PreferredSizeWidget {
             icon: Icons.image,
             iconSize: toolbarIconSize,
             controller: controller,
-            onImagePickCallback: onImagePickCallback,
             filePickImpl: filePickImpl,
-            webImagePickImpl: webImagePickImpl,
             mediaPickSettingSelector: mediaPickSettingSelector,
             iconTheme: iconTheme,
             dialogTheme: dialogTheme,
@@ -262,25 +247,10 @@ class QuillToolbar extends StatelessWidget implements PreferredSizeWidget {
             icon: Icons.movie_creation,
             iconSize: toolbarIconSize,
             controller: controller,
-            onVideoPickCallback: onVideoPickCallback,
             filePickImpl: filePickImpl,
-            webVideoPickImpl: webImagePickImpl,
             mediaPickSettingSelector: mediaPickSettingSelector,
             iconTheme: iconTheme,
             dialogTheme: dialogTheme,
-          ),
-        if ((onImagePickCallback != null || onVideoPickCallback != null) &&
-            showCameraButton)
-          CameraButton(
-            icon: Icons.photo_camera,
-            iconSize: toolbarIconSize,
-            controller: controller,
-            onImagePickCallback: onImagePickCallback,
-            onVideoPickCallback: onVideoPickCallback,
-            filePickImpl: filePickImpl,
-            webImagePickImpl: webImagePickImpl,
-            webVideoPickImpl: webVideoPickImpl,
-            iconTheme: iconTheme,
           ),
         if (showDividers &&
             isButtonGroupShown[0] &&

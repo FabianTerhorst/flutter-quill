@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../models/documents/nodes/embed.dart';
 import '../../models/themes/quill_dialog_theme.dart';
 import '../../models/themes/quill_icon_theme.dart';
 import '../controller.dart';
 import '../toolbar.dart';
-import 'image_video_utils.dart';
 import 'link_dialog.dart';
 
 class ImageButton extends StatelessWidget {
@@ -14,10 +12,8 @@ class ImageButton extends StatelessWidget {
     required this.icon,
     required this.controller,
     this.iconSize = kDefaultIconSize,
-    this.onImagePickCallback,
     this.fillColor,
     this.filePickImpl,
-    this.webImagePickImpl,
     this.mediaPickSettingSelector,
     this.iconTheme,
     this.dialogTheme,
@@ -30,10 +26,6 @@ class ImageButton extends StatelessWidget {
   final Color? fillColor;
 
   final QuillController controller;
-
-  final OnImagePickCallback? onImagePickCallback;
-
-  final WebImagePickImpl? webImagePickImpl;
 
   final FilePickImpl? filePickImpl;
 
@@ -62,30 +54,8 @@ class ImageButton extends StatelessWidget {
   }
 
   Future<void> _onPressedHandler(BuildContext context) async {
-    if (onImagePickCallback != null) {
-      final selector =
-          mediaPickSettingSelector ?? ImageVideoUtils.selectMediaPickSetting;
-      final source = await selector(context);
-      if (source != null) {
-        if (source == MediaPickSetting.Gallery) {
-          _pickImage(context);
-        } else {
-          _typeLink(context);
-        }
-      }
-    } else {
-      _typeLink(context);
-    }
+    _typeLink(context);
   }
-
-  void _pickImage(BuildContext context) => ImageVideoUtils.handleImageButtonTap(
-        context,
-        controller,
-        ImageSource.gallery,
-        onImagePickCallback!,
-        filePickImpl: filePickImpl,
-        webImagePickImpl: webImagePickImpl,
-      );
 
   void _typeLink(BuildContext context) {
     showDialog<String>(
