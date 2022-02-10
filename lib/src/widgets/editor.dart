@@ -60,6 +60,17 @@ abstract class EditorState extends State<RawEditor>
   bool showToolbar();
 
   void requestKeyboard();
+
+  /// Requests that the client add a text placeholder to reserve visual space
+  /// in the text.
+  ///
+  /// For example, this is called when responding to UIKit requesting
+  /// a text placeholder be added at the current selection, such as when
+  /// requesting additional writing space with iPadOS14 Scribble.
+  void insertTextPlaceholder(Size size) {}
+
+  /// Requests that the client remove the text placeholder.
+  void removeTextPlaceholder() {}
 }
 
 /// Base interface for editable render objects.
