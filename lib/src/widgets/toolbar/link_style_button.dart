@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/documents/attribute.dart';
 import '../../models/themes/quill_dialog_theme.dart';
 import '../../models/themes/quill_icon_theme.dart';
-import '../../translations/toolbar.i18n.dart';
+//import '../../translations/toolbar.i18n.dart';
 import '../controller.dart';
 import '../toolbar.dart';
 import 'link_dialog.dart';
@@ -74,7 +74,7 @@ class _LinkStyleButtonState extends State<LinkStyleButton> {
       },
       child: Tooltip(
         key: _toolTipKey,
-        message: 'Please first select some text to transform into a link.'.i18n,
+        message: 'Please first select some text to transform into a link.'/*.i18n*/,
         child: QuillIconButton(
           highlightElevation: 0,
           hoverElevation: 0,

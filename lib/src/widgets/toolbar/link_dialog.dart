@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/themes/quill_dialog_theme.dart';
-import '../../translations/toolbar.i18n.dart';
+//import '../../translations/toolbar.i18n.dart';
 
 class LinkDialog extends StatefulWidget {
   const LinkDialog({this.dialogTheme, Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class LinkDialogState extends State<LinkDialog> {
       content: TextField(
         style: widget.dialogTheme?.inputTextStyle,
         decoration: InputDecoration(
-            labelText: 'Paste a link'.i18n,
+            labelText: 'Paste a link'/*.i18n*/,
             labelStyle: widget.dialogTheme?.labelTextStyle,
             floatingLabelStyle: widget.dialogTheme?.labelTextStyle),
         autofocus: true,
@@ -32,7 +32,7 @@ class LinkDialogState extends State<LinkDialog> {
         TextButton(
           onPressed: _link.isNotEmpty ? _applyLink : null,
           child: Text(
-            'Ok'.i18n,
+            'Ok'/*.i18n*/,
             style: widget.dialogTheme?.labelTextStyle,
           ),
         ),
